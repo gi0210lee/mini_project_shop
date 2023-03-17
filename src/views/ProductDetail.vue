@@ -29,8 +29,13 @@
                 :key="{ i }"
                 v-for="(pimg, i) in productImage"
               >
-                <img class="d-block w-100" :src="pimg.path" alt="..." />
-                <!-- <img :src="`/download/${productId}/${img.path}`" alt="..." /> -->
+                <!-- <img class="d-block w-100" :src="pimg.path" alt="..." /> -->
+                <img
+                  v-if="pimg.path != undefined"
+                  class="d-block w-100"
+                  :src="`/download/${productId}/${pimg.path}`"
+                  alt="..."
+                />
               </div>
             </div>
             <a
@@ -111,7 +116,7 @@
                   </div>
                 </div>
                 <div class="row pt-3 pb-3 border-top">
-                  <div cllass="col-6">
+                  <div class="col-6">
                     <h3>총 상품 금액</h3>
                   </div>
                   <div class="col-6" style="text-align: right">
@@ -137,8 +142,12 @@
 
         <div class="row">
           <div class="col-12">
-            <!-- <img :src="`/download/${productId}/${productDetail.path}`" /> -->
-            <img class="img-fluid" :src="`${productDetail.path}`" />
+            <img
+              v-if="productDetail.path != undefined"
+              class="img-fluid"
+              :src="`/download/${productId}/${productDetail.path}`"
+            />
+            <!-- <img class="img-fluid" :src="`${productDetail.path}`" /> -->
           </div>
         </div>
       </div>
@@ -160,7 +169,6 @@ export default {
 
   created() {
     this.productId = this.$route.query.product_id;
-    console.log("this.productId: ", this.productId);
     this.getProductDetail();
     this.getProductImage();
   },
@@ -185,14 +193,13 @@ export default {
         this.productDetail = productDetail[0];
         this.totalPrice = this.productDetail.product_price * this.total;
       }
-      console.log("this.productDetail: ", this.productDetail);
+      console.log(productDetail);
     },
 
     async getProductImage() {
       this.productImage = await this.$api("/api/productMainImages", {
         param: [this.productId],
       });
-      console.log("this.productImage: ", this.productImage);
     },
   },
 };

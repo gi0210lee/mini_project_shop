@@ -19,12 +19,12 @@
         >
           <div class="card" style="width: 18rem">
             <a @click="goToDetail(product.id)" style="cursor: pointer">
-              <!-- <img
+              <img
                 :src="`/download/${product.id}/${product.path}`"
                 class="card-img-top"
                 alt="..."
-              /> -->
-              <img :src="`${product.path}`" class="card-img-top" alt="..." />
+              />
+              <!-- <img :src="`${product.path}`" class="card-img-top" alt="..." /> -->
             </a>
             <div class="card-body">
               <h5 class="card-title">{{ product.product_name }}</h5>

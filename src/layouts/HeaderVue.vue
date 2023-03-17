@@ -1,7 +1,7 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">Soldout</a>
+      <a class="navbar-brand" href="/">Soldout</a>
       <button
         class="navbar-toggler"
         type="button"

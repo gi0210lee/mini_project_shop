@@ -13,7 +13,7 @@ module.exports = defineConfig({
         target,
         changeOrigin: true,
       },
-      "^/uplaod": {
+      "^/upload": {
         target,
         changeOrigin: true,
       },

@@ -67,10 +67,11 @@ app.post("/api/logout", async (request, res) => {
   res.send("ok");
 });
 
-app.post("/upload/:productId/:fileName", async (request, res) => {
+app.post("/upload/:productId/:type/:fileName", async (request, res) => {
   let { productId, type, fileName } = request.params;
   const dir = `${__dirname}/uploads/${productId}`;
   const file = `${dir}/${fileName}`;
+  console.log(dir, "/", file);
   if (!request.body.data)
     return fs.unlink(file, async (err) => res.send({ err }));
   const data = request.body.data.slice(
@@ -94,6 +95,21 @@ app.post("/upload/:productId/:fileName", async (request, res) => {
       res.send("ok");
     }
   });
+});
+
+app.get("/download/:productId/:fileName", (request, res) => {
+  console.log("download");
+  const { productId, type, fileName } = request.params;
+  const filepath = `${__dirname}/uploads/${productId}/${fileName}`;
+  res.header(
+    "Content-type",
+    `image/${fileName.substring(fileName.lastIndexOf("."))}`
+  );
+  if (!fs.existsSync(filepath))
+    res.send(404, {
+      error: "Can not found file",
+    });
+  else fs.createReadStream(filepath).pipe(res);
 });
 
 app.post("/apirole/:alias", async (request, res) => {

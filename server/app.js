@@ -78,7 +78,7 @@ app.post("/upload/:productId/:type/:fileName", async (request, res) => {
     request.body.data.indexOf(";base64,") + 8
   );
 
-  if (!fs.existsSync(dir)) fs.mkdirSync(dir);
+  if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
 
   fs.writeFile(file, data, "base64", async (error) => {
     await req.db("productImageInsert", [
